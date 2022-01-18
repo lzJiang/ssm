@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--注册service组件扫描器-->
+    <context:component-scan base-package="com.demo.service"/>
+    <!--    引入属性配置文件-->
+    <context:property-placeholder location="classpath:conf/jdbc.properties"/>
+    <!--    配置阿里的durid连接池-->
+    <bean id='dataSource' class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.user.id}"></property>
+        <property name="password" value="${jdbc.pwd}"></property>
+    </bean>
+    <!--    注册sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:conf/mybatis.xml"></property>
+    </bean>
+    <!--   动态代理对象 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <property name="basePackage" value="com.demo.mapper"></property>
+    </bean>
+</beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!--    实体类包路径-->
+        <package name="com.demo.dto"/>
+    </typeAliases>
+    <mappers>
+        <!--        指定mapper接口路径
+                    package使用条件：
+                    1.sql映射文件名和mapper接口名需一致
+                    2.sql映射文件和mapper接口在同一目录下-->
+        <package name="com.demo.mapper"/>
+    </mappers>
+</configuration>
